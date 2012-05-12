@@ -35,7 +35,7 @@ from quantum.common import exceptions as exception
 from quantum.common import utils
 
 
-LOG = logging.getLogger('quantum.common.wsgi')
+LOG = logging.getLogger(__name__)
 
 
 class WritableLogger(object):
@@ -750,6 +750,12 @@ class Resource(Application):
         except webob.exc.HTTPException as ex:
             LOG.info(_("HTTP exception thrown: %s"), unicode(ex))
             action_result = Fault(ex,
+                                  self._xmlns,
+                                  self._fault_body_function)
+        except Exception:
+            LOG.exception("Internal error")
+            # Do not include the traceback to avoid returning it to clients.
+            action_result = Fault(webob.exc.HTTPServerError(),
                                   self._xmlns,
                                   self._fault_body_function)
 

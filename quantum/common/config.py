@@ -19,19 +19,16 @@
 Routines for configuring Quantum
 """
 
-import ConfigParser
 import logging
 import logging.config
 import logging.handlers
 import optparse
 import os
-import re
-import sys
 import socket
+import sys
 
 from paste import deploy
 
-from quantum.common import exceptions as exception
 from quantum.common import flags
 
 
@@ -39,7 +36,6 @@ DEFAULT_LOG_FORMAT = "%(asctime)s %(levelname)8s [%(name)s] %(message)s"
 DEFAULT_LOG_DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
 
 FLAGS = flags.FLAGS
-LOG = logging.getLogger('quantum.wsgi')
 
 
 def parse_options(parser, cli_args=None):

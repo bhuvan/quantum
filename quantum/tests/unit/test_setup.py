@@ -17,6 +17,7 @@
 
 import os
 import unittest
+from tempfile import mkstemp
 
 from quantum.openstack.common.setup import canonicalize_emails
 from quantum.openstack.common.setup import parse_mailmap
@@ -25,7 +26,7 @@ from quantum.openstack.common.setup import parse_mailmap
 class SetupTest(unittest.TestCase):
 
     def setUp(self):
-        self.mailmap = '.mailmap.test'
+        (fd, self.mailmap) = mkstemp(prefix='openstack', suffix='.mailmap')
 
     def test_str_dict_replace(self):
         string = 'Johnnie T. Hozer'
